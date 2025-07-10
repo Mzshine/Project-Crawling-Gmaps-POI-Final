@@ -5,7 +5,6 @@ Proyek ini berisi skrip Python untuk melakukan scraping data Point of Interest (
 - Library yang Digunakan
 - Pengaturan dan Instalasi
 - Cara Menjalankan
-- Struktur File
 - Gambaran Kode
 # **Fitur**
 - Scraping Otomatis: Memanfaatkan Selenium untuk mengotomatisasi proses pencarian dan ekstraksi data dari Google Maps.
@@ -35,3 +34,69 @@ Proyek ini berisi skrip Python untuk melakukan scraping data Point of Interest (
 # Pengaturan dan Instalasi
 1. Clone Repositori ini
    ```
+   git clone https://github.com/Mzshine/Project-Crawling-Gmaps-POI-Final.git
+   cd Project-Crawling-Gmaps-POI-Final
+   ```
+3. Install Library Python yang diperlukan
+   Buat file ** _requirements.txt_** dengan konten berikut :
+   ```
+   selenium
+   webdriver-manager
+   ```
+   Kemudian, jalankan perintah berikut untuk menginstallnya :
+   ```
+   pip install -r requirements.txt
+   ```
+4. Siapkan file input
+   Pastikan anda memiliki file **_list_vity.csv_** di direktori utama. File ini harus berisi daftar kota yang ingin anda scrape, dengan satu kota satu baris
+# Cara Menjalankan
+1. Konfigurasi skrip:
+  Buka notebook crawling.ipynb dan ubah variabel berikut di sel keenam sesuai kebutuhan:
+
+  - **_find_poi_**: Daftar nama point of interest yang ingin Anda cari (misalnya, ['INFORMA', 'MR.DIY']).
+
+  - **_f_city_ind_** dan _**l_city_ind**_: Indeks awal dan akhir dari kota yang akan diproses dari file list_city.csv Anda.
+
+2. Jalankan Jupyter Notebook:
+Jalankan sel-sel di dalam notebook crawling.ipynb secara berurutan. Skrip akan:
+
+  - Membuka jendela browser Chrome baru.
+
+  - Menavigasi ke Google Maps.
+
+  - Melakukan iterasi melalui setiap POI dan kota yang telah Anda tentukan.
+
+  - Mencari setiap POI di setiap kota.
+
+  - Menggulir panel hasil pencarian untuk memuat semua data yang tersedia.
+
+  - Mengekstrak detail untuk setiap lokasi.
+
+  - Menyimpan data ke file .csv di direktori utama proyek dan file log di direktori result/ dan log/.
+
+# Gambaran Kode
+Skrip ini diatur ke dalam beberapa bagian utama:
+
+  - Impor dan Pengaturan: Mengimpor pustaka yang diperlukan dan mengatur konfigurasi untuk logging.
+
+  - Inisialisasi Browser: Mengonfigurasi dan menginisialisasi Selenium WebDriver untuk Chrome.
+
+  - Konfigurasi: Mendefinisikan kueri pencarian (**find_poi**) dan rentang kota yang akan di-scrape dari file **list_city.csv.**
+
+  - Loop Utama:
+
+    - Skrip melakukan iterasi melalui setiap Point of Interest (fp) dan setiap city.
+
+    - Untuk setiap kombinasi, skrip membuat kueri pencarian dan mengirimkannya ke Google Maps.
+
+    - Kemudian, secara dinamis menggulir panel hasil untuk memuat semua entri.
+
+  - Ekstraksi dan Penyimpanan Data:
+
+    - Untuk setiap hasil pencarian, skrip akan mengklik entri untuk melihat detailnya.
+
+    - Skrip mengekstrak nama, kategori, alamat, koordinat, dan tautan Google Maps.
+
+    - Data yang diekstraksi kemudian ditulis ke dalam file CSV.
+
+    - Kemajuan proses dan setiap kesalahan dicatat ke konsol dan ke file log.
